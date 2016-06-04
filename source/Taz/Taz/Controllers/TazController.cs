@@ -5,6 +5,7 @@ using System.Web.Http;
 
 using Newtonsoft.Json.Linq;
 
+using Taz.Core;
 using Taz.Core.History;
 using Taz.Core.Models;
 using Taz.Core.Reply;
@@ -19,10 +20,10 @@ namespace Taz.Controllers
         public async Task Post()
         {
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
-            var command = obj.ToObject<SlackCommand>();
+            var command = obj.ToObject<SlackCommand>() as SlackCommand;
 
             // Digest data
-            HistoryHelper.DigestHistory(0);
+            HistoryHelper.DigestHistory(Core.User.Yohan);
 
             // Reply
             ReplyHelper.BotReply(command);

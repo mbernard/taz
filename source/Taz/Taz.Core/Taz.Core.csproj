@@ -34,6 +34,10 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SlackAPI, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SlackAPI.1.0.4.2\lib\net45\SlackAPI.dll</HintPath>
       <Private>True</Private>
@@ -48,11 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="History\HistoryHelper.cs" />
+    <Compile Include="IJsonSerializer.cs" />
     <Compile Include="Models\SlackCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reply\ReplyHelper.cs" />
     <Compile Include="SlackClientFactory.cs" />
+    <Compile Include="Slack\SlackRestClient.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenLoader.cs" />
     <Compile Include="User.cs" />

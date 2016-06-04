@@ -10,7 +10,7 @@ namespace Taz.Core.Reply
     {
         public static void BotReply(SlackCommand command)
         {
-            var botClient = SlackClientFactory.CreateClient(User.Phil);
+            var botClient = SlackClientFactory.CreateClient(User.Yohan);
             
             botClient.PostMessage(x=> {}, botClient.Channels.First(x=>x.name == "general").id, command.Text, "Taz");
             // TODO add bot reply here
