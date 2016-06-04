@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-using RestSharp;
+using SlackAPI;
 
 using Taz.Core.Models;
-using Taz.Core.Slack;
 
 namespace Taz.Core.Reply
 {
     public static class ReplyHelper
     {
-        public static async void BotReply(SlackRestClient client, SlackCommand command, string markDownReply)
-        {
-            var request = new RestRequest(new Uri("files.upload", UriKind.Relative), Method.POST);
-            request.AddQueryParameter("content", "TODO filecontent");
-            request.AddQueryParameter("filename", "TODO filename.txt");
-            request.AddQueryParameter("title", "TODO file title");
-            request.AddQueryParameter("initial_comment", "TODO initial comment");
-            request.AddQueryParameter("channels", command.ChannelId);
+        #region Public Methods and Operators
 
-            var response = await client.ExecuteTaskAsync(request);
+        public static void BotReply(SlackClient client, SlackCommand command, string markDownReply)
+        {
+            var mre = new ManualResetEventSlim();
+            client.UploadFile(
+                x =>
+                    { mre.Set(); },
+                Encoding.UTF8.GetBytes(markDownReply),
+                "TAZ " + DateTime.UtcNow.ToShortTimeString(),
+                new[] { command.ChannelId },
+                "TODO Title",
+                string.Empty,
+                false,
+                "post");
+
+            mre.Wait(TimeSpan.FromSeconds(10));
         }
+
+        #endregion
     }
 }
