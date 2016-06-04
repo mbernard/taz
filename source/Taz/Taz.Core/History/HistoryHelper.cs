@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using Newtonsoft.Json.Linq;
 
 using RestSharp;
 
+using Taz.Core.Models;
 using Taz.Core.Slack;
 
 namespace Taz.Core.History
@@ -17,18 +19,15 @@ namespace Taz.Core.History
         public static async Task DigestHistory(User user)
         {
             var client = new SlackRestClient(user);
+            var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
+            request.AddQueryParameter("channel", "C1E5VFXPY");
 
-            // hardcoded on general 
-            var response = await client.GetAsync(
-                "channels.history",
-                new[]
-                {
-                    new Tuple<string, object>("channel", "C1E5VFXPY")
-                });
+            var response = await client.ExecuteTaskAsync(request);
 
-            return JsonConvert.DeserializeObject<dynamic>(response.Content);
+            var jobject = JObject.Parse(response.Content);
+            var messagesJson = jobject.Property("messages").Value;
 
-            var data = historyResponse.Data.messages;
+            var messages = messagesJson.ToObject<List<MessageHistory>>();
         }
 
         #endregion

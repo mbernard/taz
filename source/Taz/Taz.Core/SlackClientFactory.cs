@@ -5,14 +5,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using RestSharp;
+
 using SlackAPI;
 
+using Taz.Core.Slack;
 using Taz.Core.Tokens;
 
 namespace Taz.Core
 {
     public static class SlackClientFactory
     {
+        public static SlackRestClient CreateRestClient(User user)
+        {
+            return new SlackRestClient(user);
+        }
+
         public static SlackClient CreateClient(User user)
         {
             var token = TokenLoader.GetTokenFor(user);

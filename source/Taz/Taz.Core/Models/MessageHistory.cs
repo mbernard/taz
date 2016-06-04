@@ -18,6 +18,6 @@ namespace Taz.Core.Models
         public string Text { get; set; }
 
         [JsonProperty("ts")]
-        public DateTime TimeStamp { get; set; }
+        public string UnixTimeStamp { get; set; }
     }
 }
