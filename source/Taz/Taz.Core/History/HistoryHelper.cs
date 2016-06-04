@@ -16,9 +16,8 @@ namespace Taz.Core.History
     {
         #region Methods
 
-        public static async Task DigestHistory(User user)
+        public static async Task DigestHistory(SlackRestClient client)
         {
-            var client = new SlackRestClient(user);
             var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
             request.AddQueryParameter("channel", "C1E5VFXPY");
 

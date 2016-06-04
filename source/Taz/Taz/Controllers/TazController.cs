@@ -9,6 +9,7 @@ using Taz.Core;
 using Taz.Core.History;
 using Taz.Core.Models;
 using Taz.Core.Reply;
+using Taz.Core.Slack;
 
 namespace Taz.Controllers
 {
@@ -19,14 +20,16 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
+            var client = new SlackRestClient(Core.User.Yohan);
+
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
-            var command = obj.ToObject<SlackCommand>() as SlackCommand;
+            var commandContext = obj.ToObject<SlackCommand>() as SlackCommand;
 
             // Digest data
-            await HistoryHelper.DigestHistory(Core.User.Yohan);
+            await HistoryHelper.DigestHistory(client);
 
             // Reply
-            ReplyHelper.BotReply(command);
+            ReplyHelper.BotReply(client, commandContext, "allo");
         }
     }
 }
