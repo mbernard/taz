@@ -1,0 +1,9 @@
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\Taz.Data.exe.config
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\Taz.Data.exe
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\Taz.Data.pdb
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\Newtonsoft.Json.dll
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\SlackAPI.dll
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\Newtonsoft.Json.xml
+C:\Dev\Github\taz\source\Taz\Taz.Data\bin\Debug\SlackAPI.pdb
+C:\Dev\Github\taz\source\Taz\Taz.Data\obj\Debug\Taz.Data.exe
+C:\Dev\Github\taz\source\Taz\Taz.Data\obj\Debug\Taz.Data.pdb
