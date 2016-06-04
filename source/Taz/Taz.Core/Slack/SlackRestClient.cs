@@ -42,6 +42,20 @@ namespace Taz.Core.Slack
             return await this._client.ExecuteTaskAsync<T>(request);
         }
 
+        public async Task<IRestResponse> GetAsync(string resource, params Tuple<string, object>[] parameters)
+        {
+            var request = new RestRequest($"api/{resource}", Method.GET);
+            request.JsonSerializer = NewtonsoftJsonSerializer.Default;
+            request.AddParameter("token", this._token);
+
+            foreach (var parameter in parameters)
+            {
+                request.AddParameter(parameter.Item1, parameter.Item2);
+            }
+
+            return await this._client.ExecuteTaskAsync(request);
+        }
+
         #endregion
     }
 }

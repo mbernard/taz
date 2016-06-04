@@ -23,7 +23,7 @@ namespace Taz.Controllers
             var command = obj.ToObject<SlackCommand>() as SlackCommand;
 
             // Digest data
-            HistoryHelper.DigestHistory(Core.User.Yohan);
+            await HistoryHelper.DigestHistory(Core.User.Yohan);
 
             // Reply
             ReplyHelper.BotReply(command);

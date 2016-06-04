@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\MessageHistory.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="History\HistoryHelper.cs" />
     <Compile Include="IJsonSerializer.cs" />
