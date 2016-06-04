@@ -12,7 +12,12 @@ namespace Taz.Controllers
     {
         public string SignIn(string code)
         {
-            SlackClient.GetAccessToken(this.OnResponse, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", null, code);
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                return "authorization code cannot be null";
+            }
+
+            SlackClient.GetAccessToken(this.OnResponse, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", string.Empty, code);
 
             return "bot token:";
         }
