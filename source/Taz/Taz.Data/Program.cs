@@ -19,37 +19,39 @@ namespace Taz.Data
             Console.WriteLine("Connecting...");
 
             var conversationGenerator = new ConversationGenerator();
-            conversationGenerator.Go();
+            //conversationGenerator.Go();
+
+            NewMethod();
 
             Console.WriteLine("Job's done!");
             Console.ReadKey();
         }
 
-        public static void GenerateData(LoginResponse responses)
+        private async static void NewMethod()
         {
-            var general = Client.Channels.Single(channel => channel.name == "test");
+            SlackTaskClient phil = await SlackClientFactory.CreateAsyncClient(Core.User.Phil);
+            SlackTaskClient client = await SlackClientFactory.CreateAsyncClient(Core.User.Yohan);
+            var channel = phil.Channels.First(c => c.name == "test");
 
-            // Get History of #general
-            Client.GetChannelHistory(ChannelHistoryCallback, general);
-
-            // Create a POST in #general
-            Client.UploadFile((fileUploadResponse) =>
-            {
-                Console.WriteLine(fileUploadResponse.error);
-            },
-            Encoding.UTF8.GetBytes("allo"),
-            "MIGUEL_IS_COOL",
-            new[] { general.id },
-            "PHIL_IS_COOL_title_also",
-            "init comment",
-            false,
-            "post");
+            HistoryResponse response = await History(client, channel.id, null, null, null, 1);
         }
 
-
-        public static void ChannelHistoryCallback(ChannelMessageHistory response)
+        private static async Task<HistoryResponse> History(SlackTaskClient client, string channel, DateTime? latest = null, DateTime? oldest = null, int? count = null, int? unread = null)
         {
 
+            List<Tuple<string, string>> parameters = new List<Tuple<string, string>>();
+            parameters.Add(new Tuple<string, string>("channel", channel));
+
+            if (latest.HasValue)
+                parameters.Add(new Tuple<string, string>("latest", latest.Value.ToProperTimeStamp()));
+            if (oldest.HasValue)
+                parameters.Add(new Tuple<string, string>("oldest", oldest.Value.ToProperTimeStamp()));
+            if (count.HasValue)
+                parameters.Add(new Tuple<string, string>("count", count.Value.ToString()));
+            if (unread.HasValue)
+                parameters.Add(new Tuple<string, string>("unreads", unread.Value.ToString()));
+
+            return await client.APIRequestWithTokenAsync<HistoryResponse>(parameters.ToArray());
         }
     }
 }
