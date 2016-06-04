@@ -14,15 +14,22 @@ using Taz.Core.Tokens;
 
 namespace Taz.Core
 {
-    public static class SlackClientFactory
+    public class SlackClientFactory
     {
-        public static SlackRestClient CreateRestClient(User user)
+        private readonly User _user;
+
+        public SlackClientFactory(User user)
         {
-            return new SlackRestClient(user);
+            this._user = user;
         }
-        public static async Task<SlackTaskClient> CreateTaskClient(User user)
+
+        public SlackRestClient CreateRestClient()
         {
-            var token = TokenLoader.GetTokenFor(user);
+            return new SlackRestClient(this._user);
+        }
+        public async Task<SlackTaskClient> CreateTaskClientAsync()
+        {
+            var token = TokenLoader.GetTokenFor(this._user);
             var client = new SlackTaskClient(token);
 
             await client.ConnectAsync();
@@ -30,9 +37,9 @@ namespace Taz.Core
             return client;
         }
 
-        public static SlackClient CreateClient(User user)
+        public SlackClient CreateClient()
         {
-            var token = TokenLoader.GetTokenFor(user);
+            var token = TokenLoader.GetTokenFor(this._user);
             var client =  new SlackClient(token);
 
             var mre = new ManualResetEventSlim();
@@ -43,16 +50,6 @@ namespace Taz.Core
                     });
 
             mre.Wait();
-
-            return client;
-        }
-
-        public async static Task<SlackTaskClient> CreateAsyncClient(User user)
-        {
-            var token = TokenLoader.GetTokenFor(user);
-            var client = new SlackTaskClient(token);
-
-            await client.ConnectAsync();
 
             return client;
         }

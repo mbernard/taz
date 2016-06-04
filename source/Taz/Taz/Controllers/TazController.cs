@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,25 +22,28 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
-            var user = Core.User.Miguel;
-            var client = new SlackRestClient(user);
-
+            // Parse command context.
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
             var commandContext = obj.ToObject<SlackCommand>() as SlackCommand;
 
+            // Set user
+            var user = UserResolver.GetByUserName(commandContext.UserName);
+            var clientFactory = new SlackClientFactory(user);
+            
             // Get unread history
-            var unreadMessages = await HistoryHelper.GetUnreadMessagesAsync(commandContext);
+            var unreadMessages = await HistoryHelper.GetUnreadMessagesAsync(clientFactory, commandContext);
 
             // Filter/aggregate what's relevant
             var digest = new Digest();
             var section = new Section();
             section.Name="Unreads";
-            section.IconEmojiName = ":heart:";
+            section.IconEmoji = ":heart:";
             section.Items = unreadMessages.Select(x => x.Text);
+            section.Items = new List<string>() { "item1", "item2" };
             digest.Sections.Add(section);
 
             // Reply
-            ReplyHelper.BotReply(SlackClientFactory.CreateClient(user), commandContext, digest);
+            await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);
         }
     }
 }

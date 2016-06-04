@@ -38,9 +38,8 @@ namespace Taz.Core.Models
 
         public string Name { get; set; }
 
-        public string IconEmojiName { get; set; }
-
         public IEnumerable<string> Items { get; set; }
+        public string IconEmoji { get; set; }
 
         #endregion
     }
