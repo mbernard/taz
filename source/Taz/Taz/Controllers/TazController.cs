@@ -8,6 +8,8 @@ using Newtonsoft.Json.Linq;
 using Taz.Core.History;
 using Taz.Core.Reply;
 
+using Taz.Models;
+
 namespace Taz.Controllers
 {
     [RoutePrefix("api/taz")]
@@ -17,14 +19,14 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
-            // https://api.slack.com/slash-commands#triggering_a_command
-            dynamic command = await this.Request.Content.ReadAsAsync<JObject>();
+            dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
+            var command = obj.ToObject<SlackCommand>();
 
             // Digest data
             HistoryHelper.DigestHistory(0);
 
             // Reply
-            ReplyHelper.BotReply(command);
+            ReplyHelper.BotReply(command.ToString());
         }
     }
 }
