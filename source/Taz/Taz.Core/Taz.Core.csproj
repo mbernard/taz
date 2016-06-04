@@ -52,7 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Models\MessageHistory.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="History\HistoryHelper.cs" />
     <Compile Include="IJsonSerializer.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenLoader.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

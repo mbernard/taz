@@ -18,7 +18,6 @@ namespace Taz.Core.Slack
 
         public void Authenticate(IRestClient client, IRestRequest request)
         {
-            request.JsonSerializer = NewtonsoftJsonSerializer.Default;
             request.AddQueryParameter("token", this._token);
         }
     }

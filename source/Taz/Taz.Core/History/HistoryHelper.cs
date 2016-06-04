@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 using RestSharp;
 
+using Taz.Core.Extensions;
 using Taz.Core.Models;
 using Taz.Core.Slack;
 
@@ -16,17 +17,18 @@ namespace Taz.Core.History
     {
         #region Methods
 
-        public static async Task DigestHistory(SlackRestClient client)
+        public static async Task<IEnumerable<Message>> DigestHistory(SlackCommand command)
         {
+            var client = new SlackRestClient(UserResolver.GetByUserId(command.UserId));
             var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
-            request.AddQueryParameter("channel", "C1E5VFXPY");
+            request.AddQueryParameter("channel", command.ChannelId);
+            request.AddQueryParameter("unreads", 100.ToString());
 
             var response = await client.ExecuteTaskAsync(request);
 
-            var jobject = JObject.Parse(response.Content);
-            var messagesJson = jobject.Property("messages").Value;
+            var messageHistory = JsonConvert.DeserializeObject<MessageHistory>(response.Content);
 
-            var messages = messagesJson.ToObject<List<MessageHistory>>();
+            return messageHistory.Messages.TakeLast(messageHistory.UnreadCount);
         }
 
         #endregion

@@ -29,5 +29,10 @@ namespace Taz.Core.Tokens
         {
             return Load().First(x=>x.Name == user.ToString()).Token;
         }
+
+        public static string GetTokenFor(string userId)
+        {
+            return Load().First(x => x.Name == userId).Token;
+        }
     }
 }
