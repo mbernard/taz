@@ -16,8 +16,10 @@ namespace Taz.Data
         {
             Console.WriteLine("Connecting...");
 
-            Client = new SlackClient(PhilToken);
-            Client.Connect(GenerateData);
+            var tokens = TokenLoader.Load();
+
+            //Client = new SlackClient(PhilToken);
+            //Client.Connect(GenerateData);
 
             Console.WriteLine("Job's done!");
             Console.ReadKey();
