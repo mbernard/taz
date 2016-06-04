@@ -5,6 +5,9 @@ using System.Web.Http;
 
 using Newtonsoft.Json.Linq;
 
+using Taz.Core.History;
+using Taz.Core.Reply;
+
 using Taz.Models;
 
 namespace Taz.Controllers
@@ -16,8 +19,14 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
-            dynamic commandObj = await this.Request.Content.ReadAsAsync<JObject>();
-            var command = commandObj.ToObject<SlackCommand>();
+            dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
+            var command = obj.ToObject<SlackCommand>();
+
+            // Digest data
+            HistoryHelper.DigestHistory(0);
+
+            // Reply
+            ReplyHelper.BotReply(command);
         }
     }
 }
