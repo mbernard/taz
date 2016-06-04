@@ -5,6 +5,9 @@ using System.Web.Http;
 
 using Newtonsoft.Json.Linq;
 
+using Taz.Core.History;
+using Taz.Core.Reply;
+
 namespace Taz.Controllers
 {
     [RoutePrefix("api/taz")]
@@ -16,6 +19,12 @@ namespace Taz.Controllers
         {
             // https://api.slack.com/slash-commands#triggering_a_command
             dynamic command = await this.Request.Content.ReadAsAsync<JObject>();
+
+            // Digest data
+            HistoryHelper.DigestHistory(0);
+
+            // Reply
+            ReplyHelper.BotReply(command);
         }
     }
 }

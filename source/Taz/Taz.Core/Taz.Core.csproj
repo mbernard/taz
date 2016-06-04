@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="History\HistoryHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reply\ReplyHelper.cs" />
     <Compile Include="SlackClientFactory.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenLoader.cs" />
