@@ -17,7 +17,7 @@ namespace Taz.Core.History
     {
         #region Methods
 
-        public static async Task<IEnumerable<Message>> DigestHistory(SlackCommand command)
+        public static async Task<IEnumerable<Message>> GetUnreadMessagesAsync(SlackCommand command)
         {
             var client = new SlackRestClient(UserResolver.GetByUserId(command.UserId));
             var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
