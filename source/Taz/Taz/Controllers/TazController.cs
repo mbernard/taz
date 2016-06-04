@@ -22,8 +22,7 @@ namespace Taz.Controllers
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
             var command = obj.ToObject<SlackCommand>() as SlackCommand;
 
-            // Digest data
-            await HistoryHelper.DigestHistory(Core.User.Yohan);
+            var unreadMessages = await HistoryHelper.DigestHistory(command);
 
             // Reply
             ReplyHelper.BotReply(command);

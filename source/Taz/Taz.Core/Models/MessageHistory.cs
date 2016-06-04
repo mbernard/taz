@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
@@ -6,18 +7,17 @@ namespace Taz.Core.Models
 {
     public class MessageHistory
     {
-        public string Type { get; set; }
+        #region Properties
 
-        public string SubType { get; set; }
+        [JsonProperty("has_more")]
+        public bool HasMore { get; set; }
 
-        public string User { get; set; }
+        [JsonProperty("unread_count_display")]
+        public int UnreadCount { get; set; }
 
-        [JsonProperty("bot_id")]
-        public string BotId { get; set; }
+        [JsonProperty("messages")]
+        public List<Message> Messages { get; set; }
 
-        public string Text { get; set; }
-
-        [JsonProperty("ts")]
-        public string UnixTimeStamp { get; set; }
+        #endregion
     }
 }
