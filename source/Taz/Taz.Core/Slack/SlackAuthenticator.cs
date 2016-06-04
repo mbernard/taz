@@ -7,7 +7,7 @@ using RestSharp.Authenticators;
 
 namespace Taz.Core.Slack
 {
-    public class SlackAuthenticator:IAuthenticator
+    public class SlackAuthenticator : IAuthenticator
     {
         private readonly string _token;
 
