@@ -10,6 +10,7 @@ namespace Taz.Core.Reply
         {
             var botClient = SlackClientFactory.CreateClient(User.Bot);
             
+            botClient.PostMessage(x=> {}, botClient.Channels.First(x=>x.name == "general").id, "test", "Taz");
             // TODO add bot reply here
         }
     }

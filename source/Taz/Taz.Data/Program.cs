@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Taz.Core;
+using Taz.Core.Tokens;
+
 namespace Taz.Data
 {
     class Program

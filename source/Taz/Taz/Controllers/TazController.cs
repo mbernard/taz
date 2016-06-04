@@ -24,7 +24,7 @@ namespace Taz.Controllers
             HistoryHelper.DigestHistory(0);
 
             // Reply
-            ReplyHelper.BotReply(command);
+            ReplyHelper.BotReply(command.ToString());
         }
     }
 }

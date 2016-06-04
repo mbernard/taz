@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using SlackAPI;
+
+using Taz.Core.Tokens;
 
 namespace Taz.Core
 {
@@ -13,7 +16,18 @@ namespace Taz.Core
         public static SlackClient CreateClient(User user)
         {
             var token = TokenLoader.GetTokenFor(user);
-            return new SlackClient(token);
+            var client =  new SlackClient(token);
+
+            var mre = new ManualResetEventSlim();
+            client.Connect(
+                x =>
+                    {
+                        mre.Set();
+                    });
+
+            mre.Wait();
+
+            return client;
         }
     }
 }
