@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taz", "Taz\Taz.csproj", "{E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taz.Data", "Taz.Data\Taz.Data.csproj", "{B31CE588-48DE-431E-88D4-6E680ECCF311}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taz.Core", "Taz.Core\Taz.Core.csproj", "{FDF5806D-6E85-4D51-BFA9-12F6C0646BDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B31CE588-48DE-431E-88D4-6E680ECCF311}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B31CE588-48DE-431E-88D4-6E680ECCF311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B31CE588-48DE-431E-88D4-6E680ECCF311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF5806D-6E85-4D51-BFA9-12F6C0646BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF5806D-6E85-4D51-BFA9-12F6C0646BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF5806D-6E85-4D51-BFA9-12F6C0646BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF5806D-6E85-4D51-BFA9-12F6C0646BDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
