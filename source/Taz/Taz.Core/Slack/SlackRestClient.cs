@@ -11,7 +11,6 @@ namespace Taz.Core.Slack
     {
         #region Fields
 
-        private readonly string _token;
         private readonly RestClient _client;
 
         #endregion
@@ -20,8 +19,9 @@ namespace Taz.Core.Slack
 
         public SlackRestClient(User user)
         {
-            this._token = TokenLoader.GetTokenFor(user);
-            this._client = new RestClient("https://slack.com");
+            var token = TokenLoader.GetTokenFor(user);
+            this._client = new RestClient("https://slack.com/api/");
+            this._client.Authenticator = new SlackAuthenticator(token);
         }
 
         #endregion
@@ -31,8 +31,6 @@ namespace Taz.Core.Slack
         public async Task<IRestResponse<T>> GetAsync<T>(string resource, params Tuple<string, object>[] parameters)
         {
             var request = new RestRequest($"api/{resource}", Method.GET);
-            request.JsonSerializer = NewtonsoftJsonSerializer.Default;
-            request.AddParameter("token", this._token);
 
             foreach (var parameter in parameters)
             {
