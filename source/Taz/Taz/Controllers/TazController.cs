@@ -6,9 +6,8 @@ using System.Web.Http;
 using Newtonsoft.Json.Linq;
 
 using Taz.Core.History;
+using Taz.Core.Models;
 using Taz.Core.Reply;
-
-using Taz.Models;
 
 namespace Taz.Controllers
 {
@@ -26,7 +25,7 @@ namespace Taz.Controllers
             HistoryHelper.DigestHistory(0);
 
             // Reply
-            ReplyHelper.BotReply(command.ToString());
+            ReplyHelper.BotReply(command);
         }
     }
 }
