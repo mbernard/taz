@@ -8,7 +8,7 @@ namespace Taz.Core.Reply
     {
         public static void BotReply(string data)
         {
-            var botClient = SlackClientFactory.CreateClient(User.Bot);
+            var botClient = SlackClientFactory.CreateClient(User.Phil);
             
             botClient.PostMessage(x=> {}, botClient.Channels.First(x=>x.name == "general").id, "test", "Taz");
             // TODO add bot reply here
