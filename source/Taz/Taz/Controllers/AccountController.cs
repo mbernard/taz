@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,14 +18,18 @@ namespace Taz.Controllers
                 return "authorization code cannot be null";
             }
 
-            SlackClient.GetAccessToken(this.OnResponse, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", string.Empty, code);
+            var token = "";
+            var mre = new ManualResetEventSlim();
+            SlackClient.GetAccessToken(
+                x =>
+                    {
+                        token = x.access_token;
+                        mre.Set();
+                    }, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", string.Empty, code);
 
-            return "bot token:";
-        }
+            mre.Wait();
 
-        private void OnResponse(AccessTokenResponse accessTokenResponse)
-        {
-            var accessToken = accessTokenResponse.access_token;
+            return "bot token: " + token;
         }
     }
 }
