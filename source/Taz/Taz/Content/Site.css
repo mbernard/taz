@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Lato', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -14,4 +14,81 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.body {
+    background-color: #202C3B;
+    background-image: url(images/background-storm-2000px.png);
+}
+
+.signin {
+    float: right;
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    margin-top: 10px
+}
+
+.signin:hover {
+    color: white;
+}
+
+.header {
+    /*background-color: red;*/
+}
+
+.logo {
+    margin-top: 10px;
+    float: left;
+    height: 37px;
+    width: 238px;
+    background-image: url(images/taz-digest-logo-white.png);
+}
+
+.logos {
+    line-height: 180px;
+    display: flex;
+    justify-content: space-around;
+    width: 538px;
+    margin: 130px auto 60px auto;
+}
+
+.plus {
+    color: white;
+    font-size: 150px;
+    opacity: 0.5;
+}
+
+.taglines {
+    display:flex;
+    flex-direction:column;
+    margin-bottom: 60px
+}
+
+.tagline1 {
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.tagline2 {
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.add-to-slack {
+    margin-bottom: 30px;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: yellow;
+    width: 100%;
 }
