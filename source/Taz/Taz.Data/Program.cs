@@ -10,16 +10,12 @@ namespace Taz.Data
     class Program
     {
         private static SlackClient Client;
-        private static string PhilToken = "xoxp-48203572272-48207316135-48200540230-e3c2e66e4e";
 
         static void Main(string[] args)
         {
             Console.WriteLine("Connecting...");
 
-            var tokens = TokenLoader.Load();
-
-            //Client = new SlackClient(PhilToken);
-            //Client.Connect(GenerateData);
+            var conversationGenerator = new ConversationGenerator();
 
             Console.WriteLine("Job's done!");
             Console.ReadKey();
