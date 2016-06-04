@@ -5,6 +5,8 @@ using System.Web.Http;
 
 using Newtonsoft.Json.Linq;
 
+using Taz.Models;
+
 namespace Taz.Controllers
 {
     [RoutePrefix("api/taz")]
@@ -14,8 +16,8 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
-            // https://api.slack.com/slash-commands#triggering_a_command
-            dynamic command = await this.Request.Content.ReadAsAsync<JObject>();
+            dynamic commandObj = await this.Request.Content.ReadAsAsync<JObject>();
+            var command = commandObj.ToObject<SlackCommand>();
         }
     }
 }
