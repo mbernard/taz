@@ -44,3 +44,4 @@ c:\dev\taz\source\Taz\Taz\bin\Antlr3.Runtime.pdb
 c:\dev\taz\source\Taz\Taz\obj\Debug\Taz.csprojResolveAssemblyReference.cache
 c:\dev\taz\source\Taz\Taz\obj\Debug\Taz.dll
 c:\dev\taz\source\Taz\Taz\obj\Debug\Taz.pdb
+C:\Dev\Github\taz\source\Taz\Taz\obj\Debug\Taz.csprojResolveAssemblyReference.cache
