@@ -45,3 +45,5 @@ c:\dev\taz\source\Taz\Taz\obj\Debug\Taz.csprojResolveAssemblyReference.cache
 c:\dev\taz\source\Taz\Taz\obj\Debug\Taz.dll
 c:\dev\taz\source\Taz\Taz\obj\Debug\Taz.pdb
 C:\Dev\Github\taz\source\Taz\Taz\obj\Debug\Taz.csprojResolveAssemblyReference.cache
+C:\Dev\taz\source\Taz\Taz\bin\SlackAPI.dll
+C:\Dev\taz\source\Taz\Taz\bin\SlackAPI.pdb
