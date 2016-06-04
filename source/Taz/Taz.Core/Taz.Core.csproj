@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Models\Digest.cs" />
     <Compile Include="Models\MessageHistory.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />

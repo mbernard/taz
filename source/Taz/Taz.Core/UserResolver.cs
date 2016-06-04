@@ -19,7 +19,7 @@ namespace Taz.Core
 
         #region Methods
 
-        public static User GetByUserId(string userId)
+        public static User GetByUserName(string userId)
         {
             return Mappings[userId];
         }

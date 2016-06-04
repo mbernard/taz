@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -26,10 +27,19 @@ namespace Taz.Controllers
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
             var commandContext = obj.ToObject<SlackCommand>() as SlackCommand;
 
-            var unreadMessages = await HistoryHelper.DigestHistory(commandContext);
+            // Get unread history
+            var unreadMessages = await HistoryHelper.GetUnreadMessagesAsync(commandContext);
+
+            // Filter/aggregate what's relevant
+            var digest = new Digest();
+            var section = new Section();
+            section.Name="Unreads";
+            section.IconEmojiName = ":heart:";
+            section.Items = unreadMessages.Select(x => x.Text);
+            digest.Sections.Add(section);
 
             // Reply
-            ReplyHelper.BotReply(SlackClientFactory.CreateClient(user), commandContext, "<h1>some html</h1>");
+            ReplyHelper.BotReply(SlackClientFactory.CreateClient(user), commandContext, digest);
         }
     }
 }

@@ -15,12 +15,33 @@ namespace Taz.Core.Reply
     {
         #region Public Methods and Operators
 
-        public static void BotReply(SlackClient client, SlackCommand command, string markDownReply)
+        public static void BotReply(SlackClient client, SlackCommand command, Digest digest)
+        {
+            // Build Markup
+            var content = CreateContent(digest);
+
+            CreatePost(client, command, content);
+        }
+
+        private static string CreateContent(Digest digest)
+        {
+            var sb = new StringBuilder();
+
+            foreach (var section in digest.Sections)
+            {
+                sb.AppendLine("#" + section.Name);
+                sb.AppendLine("---");
+            }
+            
+
+            return sb.ToString();
+        }
+
+        private static void CreatePost(SlackClient client, SlackCommand command, string markDownReply)
         {
             var mre = new ManualResetEventSlim();
             client.UploadFile(
-                x =>
-                    { mre.Set(); },
+                x => { mre.Set(); },
                 Encoding.UTF8.GetBytes(markDownReply),
                 "TAZ " + DateTime.UtcNow.ToShortTimeString(),
                 new[] { command.ChannelId },
