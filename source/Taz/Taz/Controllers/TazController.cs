@@ -20,7 +20,8 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
-            var client = new SlackRestClient(Core.User.Yohan);
+            var user = Core.User.Miguel;
+            var client = new SlackRestClient(user);
 
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
             var commandContext = obj.ToObject<SlackCommand>() as SlackCommand;
@@ -28,7 +29,7 @@ namespace Taz.Controllers
             var unreadMessages = await HistoryHelper.DigestHistory(commandContext);
 
             // Reply
-            ReplyHelper.BotReply(client, commandContext, "allo");
+            ReplyHelper.BotReply(SlackClientFactory.CreateClient(user), commandContext, "<h1>some html</h1>");
         }
     }
 }
