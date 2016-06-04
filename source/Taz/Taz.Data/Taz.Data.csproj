@@ -52,8 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConversationGenerator.cs" />
+    <Compile Include="MessageResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReactionAddedResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

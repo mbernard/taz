@@ -19,6 +19,7 @@ namespace Taz.Data
             Console.WriteLine("Connecting...");
 
             var conversationGenerator = new ConversationGenerator();
+            conversationGenerator.Go();
 
             Console.WriteLine("Job's done!");
             Console.ReadKey();

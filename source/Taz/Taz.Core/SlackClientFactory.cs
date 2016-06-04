@@ -29,5 +29,15 @@ namespace Taz.Core
 
             return client;
         }
+
+        public async static Task<SlackTaskClient> CreateAsyncClient(User user)
+        {
+            var token = TokenLoader.GetTokenFor(user);
+            var client = new SlackTaskClient(token);
+
+            await client.ConnectAsync();
+
+            return client;
+        }
     }
 }
