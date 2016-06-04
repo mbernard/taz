@@ -5,10 +5,11 @@ using System.Web.Http;
 
 using Newtonsoft.Json.Linq;
 
+using Taz.Core;
 using Taz.Core.History;
+using Taz.Core.Models;
 using Taz.Core.Reply;
-
-using Taz.Models;
+using Taz.Core.Slack;
 
 namespace Taz.Controllers
 {
@@ -19,14 +20,16 @@ namespace Taz.Controllers
         [Route("")]
         public async Task Post()
         {
-            dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
-            var command = obj.ToObject<SlackCommand>();
+            var user = Core.User.Miguel;
+            var client = new SlackRestClient(user);
 
-            // Digest data
-            HistoryHelper.DigestHistory(0);
+            dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
+            var commandContext = obj.ToObject<SlackCommand>() as SlackCommand;
+
+            var unreadMessages = await HistoryHelper.DigestHistory(commandContext);
 
             // Reply
-            ReplyHelper.BotReply(command.ToString());
+            ReplyHelper.BotReply(SlackClientFactory.CreateClient(user), commandContext, "<h1>some html</h1>");
         }
     }
 }

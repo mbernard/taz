@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace Taz.Models
+namespace Taz.Core.Models
 {
     public class SlackCommand
     {

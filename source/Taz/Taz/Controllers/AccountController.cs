@@ -27,9 +27,9 @@ namespace Taz.Controllers
                         mre.Set();
                     }, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", string.Empty, code);
 
-            mre.Wait();
+            mre.Wait(TimeSpan.FromSeconds(30));
 
-            return "bot token: " + token;
+            return "token: " + token;
         }
     }
 }
