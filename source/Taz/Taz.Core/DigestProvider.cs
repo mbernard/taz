@@ -38,35 +38,59 @@ namespace Taz.Core
         {
             var channels = await this.GetChannelsAsync();
 
-            var messages = await this.GetUnreadMessagesForChannelsAsync(channels);
+            var messages = await this.GetAllUnreadMessagesAsync(channels);
 
             // Order by timestamp and remove bot messages
-            return messages.OrderByDescending(x => x.UnixTimeStamp).Where(x => x.UserId != null);
+            return messages.OrderByDescending(x => x.UnixTimeStamp);
         }
 
-        private async Task<IEnumerable<Message>> GetUnreadMessagesForChannelsAsync(List<Channel> channels)
+        public async Task MarkAllAsReadAsync(SlackCommand command)
         {
-            var responseTasks = new List<Tuple<Channel, Task<IRestResponse>>>();
+            var channels = await this.GetChannelsAsync();
+
+            var responseTasks = new List<Task<IRestResponse>>();
             foreach (var channel in channels)
             {
-                var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
-                request.AddQueryParameter("channel", channel.Id);
-                request.AddQueryParameter("unreads", 100.ToString());
+                var messages = await this.GetUnreadMessagesForChannelAsync(channel);
+                if (messages.Any())
+                {
+                    var request = new RestRequest(new Uri("channels.mark", UriKind.Relative));
+                    request.AddQueryParameter("channel", channel.Id);
+                    request.AddQueryParameter("ts", messages.Take(1).Single().UnixTimeStamp.ToString("R"));
 
-                responseTasks.Add(new Tuple<Channel, Task<IRestResponse>>(channel, this._client.ExecuteTaskAsync(request)));
+                    responseTasks.Add(this._client.ExecuteTaskAsync(request)); 
+                }
+            }
+
+            await Task.WhenAll(responseTasks);
+        }
+
+        private async Task<IEnumerable<Message>> GetUnreadMessagesForChannelAsync(Channel channel)
+        {
+            var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
+            request.AddQueryParameter("channel", channel.Id);
+            request.AddQueryParameter("unreads", 100.ToString());
+
+            var response = await this._client.ExecuteTaskAsync(request);
+
+            var messageHistory = JsonConvert.DeserializeObject<MessageHistory>(response.Content);
+            var unreadMessages = messageHistory.Messages.Take(messageHistory.UnreadCount).ToList();
+            unreadMessages.ForEach(x => x.Channel = channel);
+
+            return unreadMessages;
+        }
+
+        private async Task<IEnumerable<Message>> GetAllUnreadMessagesAsync(IEnumerable<Channel> channels)
+        {
+            var responseTasks = new List<Tuple<Channel, Task<IEnumerable<Message>>>>();
+            foreach (var channel in channels)
+            {
+                responseTasks.Add(new Tuple<Channel, Task<IEnumerable<Message>>>(channel, this.GetUnreadMessagesForChannelAsync(channel)));
             }
 
             await Task.WhenAll(responseTasks.Select(x => x.Item2));
 
-            var messages = responseTasks.SelectMany(x =>
-            {
-                var messageHistory = JsonConvert.DeserializeObject<MessageHistory>(x.Item2.Result.Content);
-                var unreadMessages = messageHistory.Messages.Take(messageHistory.UnreadCount).ToList();
-                unreadMessages.ForEach(y => y.Channel = x.Item1);
-
-                return unreadMessages;
-            });
-            return messages;
+            return responseTasks.SelectMany(x => x.Item2.Result);
         }
 
         private async Task<List<Channel>> GetChannelsAsync()
