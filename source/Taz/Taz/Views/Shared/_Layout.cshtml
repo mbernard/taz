@@ -6,33 +6,118 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="body">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @RenderBody()
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-m-12">
+                <p class="center taglines solution">
+                    <span class="tagline3">The problem with slack</span>
+                    <span class="tagline4">Your Slack looks like a Christmas Tree?</span>
+                </p>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="~/Content/images/crying-slackbot-2.png" class="img-responsive" />
+            </div>
+            <div class="col-md-6">
+                <p class="solution-text">
+                    Your Slack is becoming messy when you're unavailable 3 hours?
+                    You don't have time to read all these notifications?
+                    Thins bing sound is driving you crazy?
+                    <br /><br />Add TAZ to your Slack team and it will send you a digest of what you've missed!
+                </p>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div class="clouds">
+        <div class="container">
+            <div class="row what">
+                <div class="col-md-12">
+                    <p class="taglines center">
+                        <span class="tagline3">What's TAZ?</span>
+                        <span class="tagline4">Get a digest of what you've missed</span>
+                    </p>
+                </div>
+            </div>
+            <div class="row features">
+                <div class="col-md-4 center">
+                    <img src="~/Content/images/icon-trending-86px.png" />
+                    <h3>Trending</h3>
+                    <p>What are the last messages with the most reactions you've missed?</p>
+                </div>
+                <div class="col-md-4 center">
+                    <img src="~/Content/images/icon-mention-86px.png" />
+                    <h3>Mentions</h3>
+                    <p>Who mentionned you in which channel when you were gone?</p>
+                </div>
+                <div class="col-md-4 center">
+                    <img src="~/Content/images/icon-topics-86px.png" />
+                    <h3>Topics</h3>
+                    <p>What topics your colleagues were talking about when you were not around?</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Bring Back your Focus</h3>
+                    <p>Add the most powerful way to digest your notifications to your team now.</p>
+                </div>
+                <div class="col-md-4 button-cta">
+                    <a class="" href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot,users:read,channels:write,channels:history,channels:read,chat:write:user,dnd:write,dnd:read,emoji:read,files:read,groups:write,groups:history,groups:read,im:write,im:history,im:read,mpim:write,mpim:history,mpim:read,pins:write,pins:read,reactions:write,reactions:read,reminders:write,reminders:read,search:read,stars:write,stars:read,team:read,usergroups:write,usergroups:read,users:write&client_id=48203572272.48200981078">
+                        <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="love">
+        <div class="container">
+            <p class="taglines center">
+                <span class="tagline3">People love TAZ</span>
+            </p>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="~/Content/images/dan-benoni.png">
+                        </div>
+                        <div class="media-body">
+                            <h3 class="media-heading">TAZ is probably the best Slack bot I've ever used. It keeps me focused and aware of what's going on when I'm not available.</h3>
+                            <br />
+                            <span class="dan">Dan Benoni</span>
+                            <br />
+                            <span class="ov">Officevibe CEO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-m-12 center">
+                    <p>&copy; Taz Maniacs - Slackathon 2016 - Montréal - </p><code>["Phil", "Mig", "Yuri", "Élo"]</code>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
