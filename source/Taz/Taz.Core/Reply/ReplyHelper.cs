@@ -34,9 +34,17 @@ namespace Taz.Core.Reply
                 foreach (var item in section.Items)
                 {
                     var attachmentItem = new Attachment();
-                    attachmentItem.Text = $"*{item}*";
-                    attachmentItem.ThumbUrl = await GetUserPicUrl(clientFactory, commandContext);
+                    attachmentItem.ThumbUrl = await GetUserPicUrl(clientFactory, item.User);
 
+                    // Build text
+                    var sb = new StringBuilder();
+                    sb.AppendLine(item.Text);
+                    foreach (var reaction in item.Reactions)
+                    {
+                        sb.Append($":{reaction.Name}: {reaction.Count}   ");
+                    }
+
+                    attachmentItem.Text = sb.ToString();
                     attachments.Add(attachmentItem);
                 }
 
@@ -53,11 +61,11 @@ namespace Taz.Core.Reply
             await PostReplyTask(clientFactory, commandContext, attachments);
         }
 
-        private static async Task<string> GetUserPicUrl(SlackClientFactory clientFactory, SlackCommand commandContext)
+        private static async Task<string> GetUserPicUrl(SlackClientFactory clientFactory, string userId)
         {
             var client = clientFactory.CreateRestClient();
             var request = new RestRequest("users.info");
-            request.AddQueryParameter("user", commandContext.UserId);
+            request.AddQueryParameter("user", userId);
 
             var response = await client.ExecuteTaskAsync(request);
             var userResponse = JsonConvert.DeserializeObject<dynamic>(response.Content);

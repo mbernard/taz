@@ -41,6 +41,9 @@ namespace Taz.Core.Models
         [JsonProperty("footer_icon")]
         public string FooterIconUrl { get; set; }
 
+        [JsonProperty("mrkdwn_in")]
+        public string[] MarkdownIn => new [] { "text", "pretext, fields" };
+
         #endregion
     }
 }
