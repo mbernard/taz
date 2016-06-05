@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using RestSharp;
 
@@ -36,7 +37,7 @@ namespace Taz.Core.Reply
                     var user = await GetUserAsync(clientFactory, item.UserId);
                     var attachmentItem = new Attachment();
                     attachmentItem.ThumbUrl = user.Profile.Image48;
-                    attachmentItem.Footer = $"in #TODO channel name - by {user.Profile.FullName}";
+                    attachmentItem.Footer = $"in #{item.Channel.Name} - by {user.Profile.FullName}";
 
                     // Build text
                     var sb = new StringBuilder();
@@ -70,9 +71,9 @@ namespace Taz.Core.Reply
             request.AddQueryParameter("user", userId);
 
             var response = await client.ExecuteTaskAsync(request);
-            var userResponse = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            var userResponse = JObject.Parse(response.Content);
 
-            return JsonConvert.DeserializeObject<Models.User>(userResponse.user);
+            return userResponse.Property("user").Value.ToObject<Models.User>();
         }
 
         private static async Task PostReplyTask(SlackClientFactory clientFactory, SlackCommand commandContext, List<Attachment> attachments)
