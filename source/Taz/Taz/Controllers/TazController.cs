@@ -44,17 +44,23 @@ namespace Taz.Controllers
             var trendingSection = new Section();
             trendingSection.Name = ":trending: Trending";
             trendingSection.Items = trendingMessages;
-            trendingSection.Color = "#";
+            trendingSection.Color = "#E01765";
 
             digest.Sections.Add(trendingSection);
 
             // Mentions
             var mentionSection = new Section();
             mentionSection.Name = ":mention: Mentions";
-            mentionSection.Items = trendingMessages;
-            mentionSection.Color = "#";
+            mentionSection.Items = mentionnedMessages;
+            mentionSection.Color = "#02D9CD";
 
             digest.Sections.Add(mentionSection);
+
+            // Topic
+            var topicSection = new Section();
+            topicSection.Name = ":topic: Topics";
+            topicSection.Items = mentionnedMessages;
+            topicSection.Color = "#FAAD0F";
 
             // Reply
             await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);
