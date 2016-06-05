@@ -201,6 +201,13 @@
     <Content Include="Content\images\trending-carousel.png" />
     <Content Include="Content\js\jquery-1.9.1.min.js" />
     <Content Include="Content\js\owl.carousel.min.js" />
+    <Content Include="Content\images\mentions.png" />
+    <Content Include="Content\images\slack-logo-white.png" />
+    <Content Include="Content\images\social1.png" />
+    <Content Include="Content\images\taz-digest-logo-white.png" />
+    <Content Include="Content\images\topics.png" />
+    <Content Include="Content\images\tornado.png" />
+    <Content Include="Content\images\trending.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

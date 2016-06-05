@@ -35,23 +35,37 @@ namespace Taz.Controllers
             var digestProvider = new DigestProvider(user);
             var unreadMessages = await digestProvider.GetUnreadMessagesAsync(commandContext);
 
-            var trendingMessages = unreadMessages.OrderByTrending();
-            var mentionnedMessages = unreadMessages.WhereMentioned(commandContext);
+            var trendingMessages = unreadMessages.WhereNotBot().OrderByTrending().Take(3);
+            var mentionnedMessages = unreadMessages.WhereNotBot().WhereMentioned(commandContext).Take(3);
 
-            // Filter/aggregate what's relevant
+            await digestProvider.MarkAllAsReadAsync(commandContext);
+
             var digest = new Digest();
-            var section = new Section();
-            section.Name="Unreads";
-            section.IconEmoji = ":heart:";
-            section.Items = unreadMessages.Select(x => x.Text);
-            section.Items = new List<string>() { "item1", "item2" };
-            digest.Sections.Add(section);
 
-            var section2 = new Section();
-            section2.Name = "Unreads 2";
-            section2.IconEmoji = ":heart:";
-            section2.Items = new List<string>() { "item4", "item5" };
-            digest.Sections.Add(section2);
+            // Trending
+            var trendingSection = new Section();
+            trendingSection.Name = ":trending: Trending";
+            trendingSection.Items = trendingMessages;
+            trendingSection.Color = "#E01765";
+            trendingSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/trending.png";
+
+            digest.Sections.Add(trendingSection);
+
+            // Mentions
+            var mentionSection = new Section();
+            mentionSection.Name = ":mention: Mentions";
+            mentionSection.Items = mentionnedMessages;
+            mentionSection.Color = "#02D9CD";
+            mentionSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/mentions.png";
+
+            digest.Sections.Add(mentionSection);
+
+            // Topic
+            var topicSection = new Section();
+            topicSection.Name = ":topic: Topics";
+            topicSection.Items = mentionnedMessages;
+            topicSection.Color = "#FAAD0F";
+            topicSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/topics.png";
 
             // Reply
             await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);

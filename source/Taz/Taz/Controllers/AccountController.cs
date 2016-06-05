@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
+using Newtonsoft.Json.Linq;
+
+using RestSharp;
 
 using SlackAPI;
 
@@ -11,12 +16,27 @@ namespace Taz.Controllers
 {
     public class AccountController : Controller
     {
-        public string SignIn(string code)
+        public async Task<string> SignIn(string code)
         {
             if (string.IsNullOrWhiteSpace(code))
             {
                 return "authorization code cannot be null";
             }
+
+            //var client = new RestClient("https://slack.com/api/");
+            //var request = new RestRequest("oauth.access");
+            //request.AddQueryParameter("client_id", "48203572272.48200981078");
+            //request.AddQueryParameter("client_secret", "ab29427778b4fb9d8ea6c59aae50a8db");
+            //request.AddQueryParameter("code", code);
+
+            //var response = await client.ExecuteTaskAsync(request);
+            //var parsedReponse = JObject.Parse(response.Content);
+
+            //var token = parsedReponse.Property("access_token").Value.ToString();
+            //var bot = new JObject(parsedReponse.Property("bot").Value);
+            //var botUserId = bot.Property("bot_user_id");
+
+            //return "botUserId: " + botUserId;
 
             var token = "";
             var mre = new ManualResetEventSlim();

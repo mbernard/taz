@@ -54,15 +54,16 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\Channels.cs" />
     <Compile Include="Models\Digest.cs" />
     <Compile Include="Models\Field.cs" />
-    <Compile Include="Models\MessageBase.cs" />
+    <Compile Include="Models\InstantMessagingChannel.cs" />
     <Compile Include="Models\MessageHistory.cs" />
-    <Compile Include="Models\MessageHistoryMatch.cs" />
-    <Compile Include="Models\MessageSearchMatch.cs" />
-    <Compile Include="Models\MessagesSearchResult.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Reaction.cs" />
-    <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="DigestProvider.cs" />
     <Compile Include="IJsonSerializer.cs" />
