@@ -66,7 +66,7 @@ namespace Taz.Core
                     request.AddQueryParameter("channel", channel.Id);
                     request.AddQueryParameter("ts", messages.Take(1).Single().UnixTimeStamp.ToString("R"));
 
-                    responseTasks.Add(this._client.ExecuteTaskAsync(request)); 
+                    responseTasks.Add(this._client.ExecuteTaskAsync(request));
                 }
             }
 
@@ -120,22 +120,28 @@ namespace Taz.Core
             request.AddQueryParameter("as_user", "false");
             request.AddQueryParameter("mrkdwn", "true");
 
+            await this._client.ExecuteTaskAsync(request);
+
             _socketClient = this._clientFactory.CreateSocketClient();
             _socketClient.Connect(
-                (connected) => {}, 
-                () => 
+                (connected) => { },
+                () =>
                 {
                     _socketClient.OnMessageReceived += (message) =>
                     {
-                        if ((message.channel == tazImChannel.Id) && 
+                        if ((message.channel == tazImChannel.Id) &&
                         message.text.ToLowerInvariant().Contains("yes"))
                         {
                             this.MarkAllAsReadAsync(command).Wait();
-                            _socketClient.SendMessage(null, tazImChannel.Id, "done!");
-                            _socketClient.CloseSocket();
+                            _socketClient.SendMessage(
+                                x =>
+                                    {
+                                        _socketClient.CloseSocket();
+                                    }, tazImChannel.Id, "done!");
+
                         }
                     };
-            });
+                });
         }
 
         private async Task<IEnumerable<Models.Message>> GetUnreadMessagesForChannelAsync(Models.Channel channel)
