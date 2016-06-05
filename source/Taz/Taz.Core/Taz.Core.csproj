@@ -56,10 +56,15 @@
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Digest.cs" />
     <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\MessageBase.cs" />
     <Compile Include="Models\MessageHistory.cs" />
-    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageHistoryMatch.cs" />
+    <Compile Include="Models\MessageSearchMatch.cs" />
+    <Compile Include="Models\MessagesSearchResult.cs" />
+    <Compile Include="Models\Reaction.cs" />
+    <Compile Include="Models\SearchResult.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
-    <Compile Include="History\HistoryHelper.cs" />
+    <Compile Include="DigestProvider.cs" />
     <Compile Include="IJsonSerializer.cs" />
     <Compile Include="Models\SlackCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,8 +74,8 @@
     <Compile Include="Slack\SlackRestClient.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenLoader.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserResolver.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="User\UserResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -12,7 +12,7 @@ namespace Taz.Core.Slack
     {
         #region Constructors
 
-        public SlackRestClient(User user)
+        public SlackRestClient(User.User user)
             : base("https://slack.com/api/")
         {
             var token = TokenLoader.GetTokenFor(user);

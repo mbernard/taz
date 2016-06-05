@@ -27,8 +27,8 @@ namespace Taz.Data
 
         private async static void NewMethod()
         {
-            SlackTaskClient phil = await new SlackClientFactory(Core.User.Phil).CreateTaskClientAsync();
-            SlackTaskClient client = await new SlackClientFactory(Core.User.Yohan).CreateTaskClientAsync();
+            SlackTaskClient phil = await new SlackClientFactory(Core.User.User.Phil).CreateTaskClientAsync();
+            SlackTaskClient client = await new SlackClientFactory(Core.User.User.Yohan).CreateTaskClientAsync();
             var channel = phil.Channels.First(c => c.name == "test");
 
             HistoryResponse response = await History(client, channel.id, null, null, null, 1);
