@@ -17,12 +17,12 @@ namespace Taz.Core.Extensions
             return sourceArray.Skip(Math.Max(0, sourceArray.Count() - count));
         }
 
-        public static IEnumerable<MessageHistoryMatch> OrderByTrending(this IEnumerable<MessageHistoryMatch> source)
+        public static IEnumerable<Message> OrderByTrending(this IEnumerable<Message> source)
         {
             return source.OrderByDescending(x => x.Reactions?.Select(y => y.Users.Length).Sum() ?? 0);
         }
 
-        public static IEnumerable<MessageHistoryMatch> WhereMentioned(this IEnumerable<MessageHistoryMatch> source, SlackCommand command)
+        public static IEnumerable<Message> WhereMentioned(this IEnumerable<Message> source, SlackCommand command)
         {
             return source.Where(x =>
                 x.Text.Contains("@channel") ||
