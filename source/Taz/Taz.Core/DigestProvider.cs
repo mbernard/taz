@@ -61,7 +61,7 @@ namespace Taz.Core
 
             });
 
-            return messages.OrderByDescending(x => x.UnixTimeStamp);
+            return messages.OrderByDescending(x => x.UnixTimeStamp).Where(x => x.UserId != null);
         }
 
         #endregion
