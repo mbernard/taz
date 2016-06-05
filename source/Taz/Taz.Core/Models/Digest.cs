@@ -41,6 +41,7 @@ namespace Taz.Core.Models
         public IEnumerable<Message> Items { get; set; }
         public string IconEmoji { get; set; }
         public string Color { get; set; }
+        public string TitleImageUrl { get; set; }
 
         #endregion
     }

@@ -35,8 +35,8 @@ namespace Taz.Controllers
             var digestProvider = new DigestProvider(user);
             var unreadMessages = await digestProvider.GetUnreadMessagesAsync(commandContext);
 
-            var trendingMessages = unreadMessages.OrderByTrending();
-            var mentionnedMessages = unreadMessages.WhereMentioned(commandContext);
+            var trendingMessages = unreadMessages.OrderByTrending().Take(3);
+            var mentionnedMessages = unreadMessages.WhereMentioned(commandContext).Take(3);
 
             var digest = new Digest();
 
@@ -45,6 +45,7 @@ namespace Taz.Controllers
             trendingSection.Name = ":trending: Trending";
             trendingSection.Items = trendingMessages;
             trendingSection.Color = "#E01765";
+            trendingSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/trending.png";
 
             digest.Sections.Add(trendingSection);
 
@@ -53,6 +54,7 @@ namespace Taz.Controllers
             mentionSection.Name = ":mention: Mentions";
             mentionSection.Items = mentionnedMessages;
             mentionSection.Color = "#02D9CD";
+            mentionSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/mentions.png";
 
             digest.Sections.Add(mentionSection);
 
@@ -61,6 +63,7 @@ namespace Taz.Controllers
             topicSection.Name = ":topic: Topics";
             topicSection.Items = mentionnedMessages;
             topicSection.Color = "#FAAD0F";
+            topicSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/topics.png";
 
             // Reply
             await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);
