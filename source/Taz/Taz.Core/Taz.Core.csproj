@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Digest.cs" />
+    <Compile Include="Models\Field.cs" />
     <Compile Include="Models\MessageBase.cs" />
     <Compile Include="Models\MessageHistory.cs" />
     <Compile Include="Models\MessageHistoryMatch.cs" />
