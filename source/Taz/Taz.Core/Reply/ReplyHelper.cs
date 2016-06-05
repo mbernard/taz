@@ -28,13 +28,13 @@ namespace Taz.Core.Reply
             {
                 var attachment = new Attachment();
                 attachment.Color = section.Color;
-                attachment.Pretext = section.Name;
+                attachment.Title = section.Name;
                 attachments.Add(attachment);
 
                 foreach (var item in section.Items)
                 {
                     var attachmentItem = new Attachment();
-                    attachmentItem.Text = $"* {item}";
+                    attachmentItem.Text = $"*{item}*";
                     attachmentItem.ThumbUrl = await GetUserPicUrl(clientFactory, commandContext);
 
                     attachments.Add(attachmentItem);
@@ -62,7 +62,7 @@ namespace Taz.Core.Reply
             var response = await client.ExecuteTaskAsync(request);
             var userResponse = JsonConvert.DeserializeObject<dynamic>(response.Content);
 
-            return userResponse.user.profile.image_32;
+            return userResponse.user.profile.image_48;
         }
 
         private static async Task PostReplyTask(SlackClientFactory clientFactory, SlackCommand commandContext, List<Attachment> attachments)
@@ -71,11 +71,12 @@ namespace Taz.Core.Reply
             
             var resquest = new RestRequest("chat.postMessage");
             resquest.AddQueryParameter("channel", commandContext.ChannelId);
-            resquest.AddQueryParameter("text", "# Taz Super Recap!");
+            resquest.AddQueryParameter("text", "*Taz Super Recap!*");
             resquest.AddQueryParameter("link_names", "1");
             resquest.AddQueryParameter("attachments", JsonConvert.SerializeObject(attachments));
             resquest.AddQueryParameter("username", "Taz");
             resquest.AddQueryParameter("as_user", "false");
+            resquest.AddQueryParameter("mrkdwn", "true");
 
             var response = await client.ExecuteTaskAsync(resquest);
         }
