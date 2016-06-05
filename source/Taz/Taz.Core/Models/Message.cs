@@ -6,6 +6,9 @@ namespace Taz.Core.Models
 {
     public class Message
     {
+        [JsonIgnore]
+        public Channel Channel { get; set; }
+
         public string Type { get; set; }
 
         [JsonProperty("user")]
