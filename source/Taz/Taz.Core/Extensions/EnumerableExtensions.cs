@@ -27,7 +27,7 @@ namespace Taz.Core.Extensions
             return source.Where(x =>
                 x.Text.Contains("@channel") ||
                 x.Text.Contains("<!channel>") ||
-                x.Text.Contains($"<@{command.UserId}|{command.UserName}>"));
+                x.Text.Contains($"@{command.UserId}"));
         }
 
         #endregion
