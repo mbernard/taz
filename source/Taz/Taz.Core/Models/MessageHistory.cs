@@ -16,7 +16,7 @@ namespace Taz.Core.Models
         public int UnreadCount { get; set; }
 
         [JsonProperty("messages")]
-        public List<Message> Messages { get; set; }
+        public List<MessageHistoryMatch> Messages { get; set; }
 
         #endregion
     }

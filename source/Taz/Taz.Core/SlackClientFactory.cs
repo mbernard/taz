@@ -16,9 +16,9 @@ namespace Taz.Core
 {
     public class SlackClientFactory
     {
-        private readonly User _user;
+        private readonly User.User _user;
 
-        public SlackClientFactory(User user)
+        public SlackClientFactory(User.User user)
         {
             this._user = user;
         }

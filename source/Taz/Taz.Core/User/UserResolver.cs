@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Taz.Core
+namespace Taz.Core.User
 {
     public static class UserResolver
     {

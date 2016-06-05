@@ -8,10 +8,11 @@ using System.Web.Http;
 using Newtonsoft.Json.Linq;
 
 using Taz.Core;
-using Taz.Core.History;
+using Taz.Core.Extensions;
 using Taz.Core.Models;
 using Taz.Core.Reply;
 using Taz.Core.Slack;
+using Taz.Core.User;
 
 namespace Taz.Controllers
 {
@@ -24,14 +25,17 @@ namespace Taz.Controllers
         {
             // Parse command context.
             dynamic obj = await this.Request.Content.ReadAsAsync<JObject>();
-            var commandContext = obj.ToObject<SlackCommand>() as SlackCommand;
+            var commandContext = (SlackCommand)obj.ToObject<SlackCommand>();
 
             // Set user
             var user = UserResolver.GetByUserName(commandContext.UserName);
             var clientFactory = new SlackClientFactory(user);
-            
-            // Get unread history
-            var unreadMessages = await HistoryHelper.GetUnreadMessagesAsync(clientFactory, commandContext);
+
+            // Get unread messages
+            var digestProvider = new DigestProvider(user);
+            var unreadMessages = await digestProvider.GetUnreadMessagesAsync(commandContext);
+
+            var trendingMessages = unreadMessages.OrderByTrending();
 
             // Filter/aggregate what's relevant
             var digest = new Digest();

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Taz.Core
+namespace Taz.Core.User
 {
     public enum User
     {
