@@ -42,26 +42,28 @@ namespace Taz.Core
             var jContent = JObject.Parse(response.Content);
             var channels = jContent.Property("channels").Value.ToObject<List<Channel>>();
 
-            var responseTasks = new List<Task<IRestResponse>>();
+            var responseTasks = new List<Tuple<Channel, Task<IRestResponse>>>();
             foreach (var channel in channels)
             {
                 request = new RestRequest(new Uri("channels.history", UriKind.Relative));
                 request.AddQueryParameter("channel", channel.Id);
                 request.AddQueryParameter("unreads", 100.ToString());
 
-                responseTasks.Add(this._client.ExecuteTaskAsync(request));
+                responseTasks.Add(new Tuple<Channel, Task<IRestResponse>>(channel, this._client.ExecuteTaskAsync(request)));
             }
 
-            await Task.WhenAll(responseTasks);
+            await Task.WhenAll(responseTasks.Select(x => x.Item2));
 
             var messages = responseTasks.SelectMany(x =>
             {
-                var messageHistory = JsonConvert.DeserializeObject<MessageHistory>(x.Result.Content);
-                return messageHistory.Messages.Take(messageHistory.UnreadCount);
+                var messageHistory = JsonConvert.DeserializeObject<MessageHistory>(x.Item2.Result.Content);
+                var unreadMessages = messageHistory.Messages.Take(messageHistory.UnreadCount).ToList();
+                unreadMessages.ForEach(y => y.Channel = x.Item1);
 
+                return unreadMessages;
             });
 
-            return messages.OrderByDescending(x => x.UnixTimeStamp);
+            return messages.OrderByDescending(x => x.UnixTimeStamp).Where(x => x.UserId != null);
         }
 
         #endregion
