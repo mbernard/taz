@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,8 +9,6 @@ using Newtonsoft.Json.Linq;
 using Taz.Core;
 using Taz.Core.Extensions;
 using Taz.Core.Models;
-using Taz.Core.Reply;
-using Taz.Core.Slack;
 using Taz.Core.User;
 
 namespace Taz.Controllers
@@ -19,6 +16,8 @@ namespace Taz.Controllers
     [RoutePrefix("api/taz")]
     public class TazController : ApiController
     {
+        #region Methods
+
         [HttpPost]
         [Route("")]
         public async Task Post()
@@ -32,13 +31,11 @@ namespace Taz.Controllers
             var clientFactory = new SlackClientFactory(user);
 
             // Get unread messages
-            var digestProvider = new DigestProvider(user);
-            var unreadMessages = await digestProvider.GetUnreadMessagesAsync(commandContext);
+            var digestService = new DigestService(user);
+            var unreadMessages = await digestService.GetUnreadMessagesAsync(commandContext);
 
             var trendingMessages = unreadMessages.WhereNotBot().OrderByTrending().Take(3);
             var mentionnedMessages = unreadMessages.WhereNotBot().WhereMentioned(commandContext).Take(3);
-
-            await digestProvider.MarkAllAsReadAsync(commandContext);
 
             var digest = new Digest();
 
@@ -68,7 +65,13 @@ namespace Taz.Controllers
             topicSection.TitleImageUrl = "http://taz.azurewebsites.net/content/images/topics.png";
 
             // Reply
-            await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);
+            await digestService.PostDigestAsync(commandContext, digest);
+
+            await digestService.AskToReadAllAsync(commandContext);
+
+            //await digestProvider.MarkAllAsReadAsync(commandContext);
         }
+
+        #endregion
     }
 }
