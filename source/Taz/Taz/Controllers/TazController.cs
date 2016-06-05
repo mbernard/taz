@@ -42,6 +42,12 @@ namespace Taz.Controllers
             section.Items = new List<string>() { "item1", "item2" };
             digest.Sections.Add(section);
 
+            var section2 = new Section();
+            section2.Name = "Unreads 2";
+            section2.IconEmoji = ":heart:";
+            section2.Items = new List<string>() { "item4", "item5" };
+            digest.Sections.Add(section2);
+
             // Reply
             await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);
         }
