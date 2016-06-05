@@ -36,16 +36,20 @@ namespace Taz.Core
 
         public async Task<IEnumerable<Message>> GetUnreadMessagesAsync(SlackCommand command)
         {
-            var request = new RestRequest(new Uri("channels.list", UriKind.Relative));
-            var response = await this._client.ExecuteTaskAsync(request);
+            var channels = await this.GetChannelsAsync();
 
-            var jContent = JObject.Parse(response.Content);
-            var channels = jContent.Property("channels").Value.ToObject<List<Channel>>();
+            var messages = await this.GetUnreadMessagesForChannelsAsync(channels);
 
+            // Order by timestamp and remove bot messages
+            return messages.OrderByDescending(x => x.UnixTimeStamp).Where(x => x.UserId != null);
+        }
+
+        private async Task<IEnumerable<Message>> GetUnreadMessagesForChannelsAsync(List<Channel> channels)
+        {
             var responseTasks = new List<Tuple<Channel, Task<IRestResponse>>>();
             foreach (var channel in channels)
             {
-                request = new RestRequest(new Uri("channels.history", UriKind.Relative));
+                var request = new RestRequest(new Uri("channels.history", UriKind.Relative));
                 request.AddQueryParameter("channel", channel.Id);
                 request.AddQueryParameter("unreads", 100.ToString());
 
@@ -62,24 +66,19 @@ namespace Taz.Core
 
                 return unreadMessages;
             });
+            return messages;
+        }
 
-            return messages.OrderByDescending(x => x.UnixTimeStamp).Where(x => x.UserId != null);
+        private async Task<List<Channel>> GetChannelsAsync()
+        {
+            var request = new RestRequest(new Uri("channels.list", UriKind.Relative));
+            var response = await this._client.ExecuteTaskAsync(request);
+
+            var jContent = JObject.Parse(response.Content);
+            var channels = jContent.Property("channels").Value.ToObject<List<Channel>>();
+            return channels;
         }
 
         #endregion
-
-        //    request.AddQueryParameter("count", 100.ToString());
-        //    var request = new RestRequest(new Uri("search.all", UriKind.Relative));
-        //{
-
-        //public async Task<IEnumerable<MessageSearchMatch>> GetLatestMentionsAsync(SlackCommand command)
-        //    request.AddQueryParameter("query", $"<@{command.UserId}|{command.UserName}> <!channel>  in:#{command.ChannelName}");
-
-        //    var response = await this._client.ExecuteTaskAsync(request);
-
-        //    var searchResult = JsonConvert.DeserializeObject<SearchResult>(response.Content);
-
-        //    return searchResult.Messages.Matches;
-        //}
     }
 }
