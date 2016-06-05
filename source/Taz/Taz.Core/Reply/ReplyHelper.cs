@@ -33,8 +33,10 @@ namespace Taz.Core.Reply
 
                 foreach (var item in section.Items)
                 {
+                    var user = await GetUserAsync(clientFactory, item.UserId);
                     var attachmentItem = new Attachment();
-                    attachmentItem.ThumbUrl = await GetUserPicUrl(clientFactory, item.User);
+                    attachmentItem.ThumbUrl = user.Profile.Image48;
+                    attachmentItem.Footer = $"in #TODO channel name - by {user.Profile.FullName}";
 
                     // Build text
                     var sb = new StringBuilder();
@@ -61,7 +63,7 @@ namespace Taz.Core.Reply
             await PostReplyTask(clientFactory, commandContext, attachments);
         }
 
-        private static async Task<string> GetUserPicUrl(SlackClientFactory clientFactory, string userId)
+        private static async Task<Models.User> GetUserAsync(SlackClientFactory clientFactory, string userId)
         {
             var client = clientFactory.CreateRestClient();
             var request = new RestRequest("users.info");
@@ -70,7 +72,7 @@ namespace Taz.Core.Reply
             var response = await client.ExecuteTaskAsync(request);
             var userResponse = JsonConvert.DeserializeObject<dynamic>(response.Content);
 
-            return userResponse.user.profile.image_48;
+            return JsonConvert.DeserializeObject<Models.User>(userResponse.user);
         }
 
         private static async Task PostReplyTask(SlackClientFactory clientFactory, SlackCommand commandContext, List<Attachment> attachments)

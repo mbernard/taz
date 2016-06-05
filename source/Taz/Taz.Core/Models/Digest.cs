@@ -29,7 +29,7 @@ namespace Taz.Core.Models
 
         public Section()
         {
-            this.Items = new List<MessageHistoryMatch>();
+            this.Items = new List<Message>();
         }
 
         #endregion
@@ -38,7 +38,7 @@ namespace Taz.Core.Models
 
         public string Name { get; set; }
 
-        public IEnumerable<MessageHistoryMatch> Items { get; set; }
+        public IEnumerable<Message> Items { get; set; }
         public string IconEmoji { get; set; }
         public string Color { get; set; }
 
