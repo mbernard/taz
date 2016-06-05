@@ -30,6 +30,11 @@ namespace Taz.Core.Extensions
                 x.Text.Contains($"@{command.UserId}"));
         }
 
+        public static IEnumerable<Message> WhereNotBot(this IEnumerable<Message> source)
+        {
+            return source.Where(x => x.UserId != null);
+        } 
+
         #endregion
     }
 }

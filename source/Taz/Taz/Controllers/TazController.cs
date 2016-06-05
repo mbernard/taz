@@ -35,8 +35,10 @@ namespace Taz.Controllers
             var digestProvider = new DigestProvider(user);
             var unreadMessages = await digestProvider.GetUnreadMessagesAsync(commandContext);
 
-            var trendingMessages = unreadMessages.OrderByTrending().Take(3);
-            var mentionnedMessages = unreadMessages.WhereMentioned(commandContext).Take(3);
+            var trendingMessages = unreadMessages.WhereNotBot().OrderByTrending().Take(3);
+            var mentionnedMessages = unreadMessages.WhereNotBot().WhereMentioned(commandContext).Take(3);
+
+            await digestProvider.MarkAllAsReadAsync(commandContext);
 
             var digest = new Digest();
 
