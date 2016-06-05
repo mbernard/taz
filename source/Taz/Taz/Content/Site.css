@@ -1,6 +1,9 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿h3 {
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -14,4 +17,191 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.body {
+    background-color: #202C3B;
+    background-image: url(images/background-storm-2000px.png);
+}
+
+.signin {
+    float: right;
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+    .signin:hover {
+        color: white;
+    }
+
+.header {
+    /*background-color: red;*/
+}
+
+.logo {
+    margin-top: 10px;
+    float: left;
+    height: 37px;
+    width: 238px;
+    background-image: url(images/taz-digest-logo-white.png);
+}
+
+.logos {
+    line-height: 180px;
+    display: flex;
+    justify-content: space-around;
+    width: 538px;
+    margin: 130px auto 60px auto;
+}
+
+.plus {
+    color: white;
+    font-size: 150px;
+    opacity: 0.5;
+}
+
+.taglines {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+.tagline1 {
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.tagline2 {
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.tagline3 {
+    text-transform: uppercase;
+    font-size: 20px;
+    color: #778089;
+}
+
+.tagline4 {
+    font-size: 40px;
+    font-weight: 300;
+    color: #0F1F2E;
+}
+
+.add-to-slack {
+    margin-bottom: 60px;
+}
+
+.solution {
+    margin-top: 30px;
+    /*margin-bottom: 60px;*/
+}
+
+.solution-text {
+    padding-top: 50px;
+    color: #778089;
+    font-size: 20px;
+}
+
+.clouds {
+    margin-top: 50px;
+    background-image: url(images/background-clouds-2000px.png);
+    min-height: 1000px;
+}
+
+.what {
+    margin-top: 50px;
+}
+
+.features p {
+    color: #778089;
+    font-size: 17px;
+}
+
+.cta {
+    background-image: url(images/background-CTA-sky-2000px.png);
+    color: white;
+    padding: 30px 0;
+}
+
+    .cta h3 {
+        font-weight: 300;
+        font-size: 28px;
+    }
+
+    .cta p {
+        font-size: 18px;
+    }
+
+.button-cta {
+    margin-top: 30px;
+    direction: rtl;
+}
+
+.love {
+    background-color: #eff8fd;
+    padding-bottom: 50px;
+}
+
+    .love .taglines {
+        margin-top: 50px;
+    }
+
+    .love h3 {
+        font-size: 28px;
+    }
+
+    .love .dan {
+        font-weight: 700;
+    }
+
+    .love .ov {
+        color: #778089;
+    }
+
+
+/* FOOTER */
+
+.media {
+    overflow: hidden;
+    zoom: 1;
+    margin-top: 15px;
+}
+
+    .media:first-child {
+        margin-top: 0;
+    }
+
+.media-left {
+    display: table-cell;
+    vertical-align: top;
+    padding-right: 30px;
+}
+
+.media-body {
+    display: table-cell;
+    vertical-align: top;
+    overflow: hidden;
+    zoom: 1;
+    width: 10000px;
+}
+
+footer {
+    background-color: #0F1F2E;
+    width: 100%;
+    color: white;
+    padding-top: 5px;
+}
+
+code {
+    background-color: initial;
 }
