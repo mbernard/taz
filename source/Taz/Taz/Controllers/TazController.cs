@@ -35,22 +35,25 @@ namespace Taz.Controllers
             var digestProvider = new DigestProvider(user);
             var unreadMessages = await digestProvider.GetUnreadMessagesAsync(commandContext);
 
-            var trendingMessages = unreadMessages.OrderByTrending();
+            var trendingMessages = unreadMessages.OrderByTrending().Take(3);
 
-            // Filter/aggregate what's relevant
             var digest = new Digest();
-            var section = new Section();
-            section.Name="Unreads";
-            section.IconEmoji = ":heart:";
-            section.Items = unreadMessages.Select(x => x.Text);
-            section.Items = new List<string>() { "item1", "item2" };
-            digest.Sections.Add(section);
 
-            var section2 = new Section();
-            section2.Name = "Unreads 2";
-            section2.IconEmoji = ":heart:";
-            section2.Items = new List<string>() { "item4", "item5" };
-            digest.Sections.Add(section2);
+            // Trending
+            var trendingSection = new Section();
+            trendingSection.Name = ":trending: Trending";
+            trendingSection.Items = trendingMessages;
+            trendingSection.Color = "#";
+
+            digest.Sections.Add(trendingSection);
+
+            // Mentions
+            var mentionSection = new Section();
+            mentionSection.Name = ":mention: Mentions";
+            mentionSection.Items = trendingMessages;
+            mentionSection.Color = "#";
+
+            digest.Sections.Add(mentionSection);
 
             // Reply
             await ReplyHelper.BotReplyAsync(clientFactory, commandContext, digest);
