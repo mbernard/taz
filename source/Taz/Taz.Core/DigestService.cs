@@ -26,14 +26,16 @@ namespace Taz.Core
 
         private readonly SlackRestClient _client;
 
+        private SlackClientFactory _clientFactory;
+
         #endregion
 
         #region Constructors
 
         public DigestService(User.User user)
         {
-            var clientFactory = new SlackClientFactory(user);
-            this._client = clientFactory.CreateRestClient();
+            this._clientFactory = new SlackClientFactory(user);
+            this._client = this._clientFactory.CreateRestClient();
         }
 
         #endregion
@@ -118,9 +120,7 @@ namespace Taz.Core
             request.AddQueryParameter("as_user", "false");
             request.AddQueryParameter("mrkdwn", "true");
 
-            await this._client.ExecuteTaskAsync(request);
-
-            _socketClient = new SlackSocketClient("xoxb-48165725027-lL5v7IcvrlzO2JWuSmmQzL6B");
+            _socketClient = this._clientFactory.CreateSocketClient();
             _socketClient.Connect(
                 (connected) => {}, 
                 () => 

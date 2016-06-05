@@ -30,13 +30,8 @@ namespace Taz.Controllers
             //request.AddQueryParameter("code", code);
 
             //var response = await client.ExecuteTaskAsync(request);
-            //var parsedReponse = JObject.Parse(response.Content);
 
-            //var token = parsedReponse.Property("access_token").Value.ToString();
-            //var bot = new JObject(parsedReponse.Property("bot").Value);
-            //var botUserId = bot.Property("bot_user_id");
-
-            //return "botUserId: " + botUserId;
+            //return response.Content;
 
             var token = "";
             var mre = new ManualResetEventSlim();

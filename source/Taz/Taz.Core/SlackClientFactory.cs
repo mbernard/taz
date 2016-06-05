@@ -37,6 +37,14 @@ namespace Taz.Core
             return client;
         }
 
+        public SlackSocketClient CreateSocketClient()
+        {
+            var token = TokenLoader.GetTokenFor(this._user);
+            var client = new SlackSocketClient(token);
+
+            return client;
+        }
+
         public SlackClient CreateClient()
         {
             var token = TokenLoader.GetTokenFor(this._user);
