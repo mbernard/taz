@@ -29,11 +29,11 @@ namespace Taz.Data
 
         public async void Go()
         {
-            this.Phil = await SlackClientFactory.CreateAsyncClient(Core.User.Phil);
-            this.Philbot = await SlackClientFactory.CreateAsyncClient(Core.User.Philbot);
-            this.Yohan = await SlackClientFactory.CreateAsyncClient(Core.User.Yohan);
-            this.Mig = await SlackClientFactory.CreateAsyncClient(Core.User.Miguel);
-            this.Elodie = await SlackClientFactory.CreateAsyncClient(Core.User.Elodie);
+            this.Phil = await new SlackClientFactory(Core.User.User.Phil).CreateTaskClientAsync();
+            this.Philbot = await new SlackClientFactory(Core.User.User.Philbot).CreateTaskClientAsync();
+            this.Yohan = await new SlackClientFactory(Core.User.User.Yohan).CreateTaskClientAsync();
+            this.Mig = await new SlackClientFactory(Core.User.User.Miguel).CreateTaskClientAsync();
+            this.Elodie = await new SlackClientFactory(Core.User.User.Elodie).CreateTaskClientAsync();
 
             this.Channel = Phil.Channels.First(c => c.name == "test");
 
