@@ -23,28 +23,28 @@ namespace Taz.Controllers
                 return "authorization code cannot be null";
             }
 
-            //var client = new RestClient("https://slack.com/api/");
-            //var request = new RestRequest("oauth.access");
-            //request.AddQueryParameter("client_id", "48203572272.48200981078");
-            //request.AddQueryParameter("client_secret", "ab29427778b4fb9d8ea6c59aae50a8db");
-            //request.AddQueryParameter("code", code);
+            var client = new RestClient("https://slack.com/api/");
+            var request = new RestRequest("oauth.access");
+            request.AddQueryParameter("client_id", "48203572272.48200981078");
+            request.AddQueryParameter("client_secret", "ab29427778b4fb9d8ea6c59aae50a8db");
+            request.AddQueryParameter("code", code);
 
-            //var response = await client.ExecuteTaskAsync(request);
+            var response = await client.ExecuteTaskAsync(request);
 
-            //return response.Content;
+            return response.Content;
 
-            var token = "";
-            var mre = new ManualResetEventSlim();
-            SlackClient.GetAccessToken(
-                x =>
-                    {
-                        token = x.access_token;
-                        mre.Set();
-                    }, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", string.Empty, code);
+            //var token = "";
+            //var mre = new ManualResetEventSlim();
+            //SlackClient.GetAccessToken(
+            //    x =>
+            //        {
+            //            token = x.access_token;
+            //            mre.Set();
+            //        }, "48203572272.48200981078", "ab29427778b4fb9d8ea6c59aae50a8db", string.Empty, code);
 
-            mre.Wait(TimeSpan.FromSeconds(30));
+            //mre.Wait(TimeSpan.FromSeconds(30));
 
-            return "token: " + token;
+            //return "token: " + token;
         }
     }
 }

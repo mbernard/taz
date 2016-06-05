@@ -206,7 +206,7 @@ namespace Taz.Core
             request.AddQueryParameter("as_user", "false");
             request.AddQueryParameter("mrkdwn", "true");
 
-            await this._client.ExecuteTaskAsync(request);
+            var response = await this._client.ExecuteTaskAsync(request);
         }
 
         private async Task<InstantMessagingChannel> GetBotImChannelAsync(string botUserId)
