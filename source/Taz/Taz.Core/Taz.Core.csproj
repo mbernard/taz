@@ -58,6 +58,7 @@
     <Compile Include="Models\Channels.cs" />
     <Compile Include="Models\Digest.cs" />
     <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\InstantMessagingChannel.cs" />
     <Compile Include="Models\MessageHistory.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Reaction.cs" />

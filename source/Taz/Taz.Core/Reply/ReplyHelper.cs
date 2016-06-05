@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 
 using Taz.Core.Models;
+using Taz.Core.Slack;
 
 namespace Taz.Core.Reply
 {
@@ -78,18 +79,31 @@ namespace Taz.Core.Reply
 
         private static async Task PostReplyTask(SlackClientFactory clientFactory, SlackCommand commandContext, List<Attachment> attachments)
         {
-            var client = clientFactory.CreateRestClient();
-            
-            var resquest = new RestRequest("chat.postMessage");
-            resquest.AddQueryParameter("channel", commandContext.ChannelId);
-            resquest.AddQueryParameter("text", "*Taz Super Recap!*");
-            resquest.AddQueryParameter("link_names", "1");
-            resquest.AddQueryParameter("attachments", JsonConvert.SerializeObject(attachments));
-            resquest.AddQueryParameter("username", "Taz");
-            resquest.AddQueryParameter("as_user", "false");
-            resquest.AddQueryParameter("mrkdwn", "true");
+            var tazImChannel = await GetBotImChannelAsync(clientFactory, "U1E4VMB0T");
 
-            var response = await client.ExecuteTaskAsync(resquest);
+            var client = clientFactory.CreateRestClient();
+            var request = new RestRequest("chat.postMessage");
+            request.AddQueryParameter("channel", tazImChannel.Id);
+            request.AddQueryParameter("text", "*Taz Super Recap!*");
+            request.AddQueryParameter("link_names", "1");
+            request.AddQueryParameter("attachments", JsonConvert.SerializeObject(attachments));
+            request.AddQueryParameter("username", "Taz");
+            request.AddQueryParameter("as_user", "false");
+            request.AddQueryParameter("mrkdwn", "true");
+
+            var response = await client.ExecuteTaskAsync(request);
+        }
+
+        private static async Task<InstantMessagingChannel> GetBotImChannelAsync(SlackClientFactory clientFactory, string botUserId)
+        {
+            var client = clientFactory.CreateRestClient();
+            var request = new RestRequest("im.list");
+            var response = await client.ExecuteTaskAsync(request);
+
+            var jContent = JObject.Parse(response.Content);
+            var imChannels = jContent.Property("ims").Value.ToObject<List<InstantMessagingChannel>>();
+            var tazImChannel = imChannels.Single(x => x.UserId == botUserId);
+            return tazImChannel;
         }
 
         private static string CreateContent(Digest digest)
