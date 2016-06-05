@@ -9,6 +9,6 @@ namespace Taz.Core.User
         Yohan,
         Elodie,
         Miguel,
-        Bot,
+        Bot
     }
 }
