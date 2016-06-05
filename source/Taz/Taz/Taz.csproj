@@ -172,21 +172,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap.carousel.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\css\owl.carousel.css" />
+    <Content Include="Content\css\owl.theme.css" />
+    <Content Include="Content\css\owl.transitions.css" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\js\app.js" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\background-clouds-2000px.png" />
     <Content Include="Content\images\background-CTA-sky-2000px.png" />
     <Content Include="Content\images\background-storm-2000px.png" />
     <Content Include="Content\images\crying-slackbot-2.png" />
+    <Content Include="Content\images\CTA.png" />
     <Content Include="Content\images\dan-benoni.png" />
     <Content Include="Content\images\icon-mention-86px.png" />
     <Content Include="Content\images\icon-topics-86px.png" />
     <Content Include="Content\images\icon-trending-86px.png" />
     <Content Include="Content\images\logo-taz-512x512.png" />
+    <Content Include="Content\images\mentions-carousel.png" />
+    <Content Include="Content\images\screen-big.png" />
     <Content Include="Content\images\slack-logo-white.png" />
     <Content Include="Content\images\social1.png" />
     <Content Include="Content\images\taz-digest-logo-white.png" />
+    <Content Include="Content\images\thomas-louis.png" />
+    <Content Include="Content\images\topics-carousel.png" />
     <Content Include="Content\images\tornado.png" />
+    <Content Include="Content\images\trending-carousel.png" />
+    <Content Include="Content\js\jquery-1.9.1.min.js" />
+    <Content Include="Content\js\owl.carousel.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

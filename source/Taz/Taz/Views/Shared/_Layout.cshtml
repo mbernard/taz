@@ -6,6 +6,13 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="shortcut icon" href="~/Content/images/favicon.ico" />
+
+    <link href="~/Content/css/owl.carousel.css" rel='stylesheet' type='text/css' />
+    <link href="~/Content/css/owl.theme.css" rel='stylesheet' type='text/css' />
+    <link href="~/Content/css/owl.transitions.css" rel='stylesheet' type='text/css' />
+
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -64,6 +71,11 @@
                     <p>What topics your colleagues were talking about when you were not around?</p>
                 </div>
             </div>
+            <div class="row picture">
+                <div class="col-md-12">
+                    <img class="img-responsive" src="~/Content/images/screen-big.png" />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -76,8 +88,48 @@
                 </div>
                 <div class="col-md-4 button-cta">
                     <a class="" href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot,users:read,channels:write,channels:history,channels:read,chat:write:user,dnd:write,dnd:read,emoji:read,files:read,groups:write,groups:history,groups:read,im:write,im:history,im:read,mpim:write,mpim:history,mpim:read,pins:write,pins:read,reactions:write,reactions:read,reminders:write,reminders:read,search:read,stars:write,stars:read,team:read,usergroups:write,usergroups:read,users:write&client_id=48203572272.48200981078">
-                        <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" />
+                        <img alt="Add to Slack" src="~/Content/images/CTA.png" />
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <p class="taglines center carou">
+                    <span class="tagline3">Digest notifications</span>
+                    <span class="tagline4">See what your colleagues are talking</span>
+                </p>
+            </div>
+            <div class="carousel">
+                <div class="item">
+                    <img src="~/Content/images/trending-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/mentions-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/topics-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/trending-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/mentions-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/topics-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/trending-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/mentions-carousel.png">
+                </div>
+                <div class="item">
+                    <img src="~/Content/images/topics-carousel.png">
                 </div>
             </div>
         </div>
@@ -93,14 +145,14 @@
                 <div class="col-md-8">
                     <div class="media">
                         <div class="media-left">
-                            <img class="media-object" src="~/Content/images/dan-benoni.png">
+                            <img class="media-object" src="~/Content/images/thomas-louis.png">
                         </div>
                         <div class="media-body">
                             <h3 class="media-heading">TAZ is probably the best Slack bot I've ever used. It keeps me focused and aware of what's going on when I'm not available.</h3>
                             <br />
-                            <span class="dan">Dan Benoni</span>
+                            <span class="dan">Thomas-Louis Lafleur</span>
                             <br />
-                            <span class="ov">Officevibe CEO</span>
+                            <span class="ov">Le Chiffre CEO</span>
                         </div>
                     </div>
                 </div>
@@ -122,5 +174,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/app.js"></script>
 </body>
 </html>
