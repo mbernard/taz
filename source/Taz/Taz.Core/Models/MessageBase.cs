@@ -5,7 +5,10 @@ namespace Taz.Core.Models
     public abstract class MessageBase
     {
         public string Type { get; set; }
-        public string User { get; set; }
+
+        [JsonProperty("user")]
+        public string UserId { get; set; }
+
         public string Text { get; set; }
 
         [JsonProperty("ts")]
