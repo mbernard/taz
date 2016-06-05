@@ -73,7 +73,7 @@ namespace Taz.Core.Reply
             
             var resquest = new RestRequest("chat.postMessage");
             resquest.AddQueryParameter("channel", commandContext.ChannelId);
-            resquest.AddQueryParameter("text", "*Taz Super Recap!*");
+            resquest.AddQueryParameter("text", "*Hey! This is your digest of unread messages*");
             resquest.AddQueryParameter("link_names", "1");
             resquest.AddQueryParameter("attachments", JsonConvert.SerializeObject(attachments));
             resquest.AddQueryParameter("username", "Taz");
@@ -81,26 +81,6 @@ namespace Taz.Core.Reply
             resquest.AddQueryParameter("mrkdwn", "true");
 
             var response = await client.ExecuteTaskAsync(resquest);
-        }
-
-        private static string CreateContent(Digest digest)
-        {
-            var sb = new StringBuilder();
-
-            foreach (var section in digest.Sections)
-            {
-                sb.AppendLine($"# {section.IconEmoji} {section.Name}");
-
-                foreach (var item in section.Items)
-                {
-                    sb.Append("&lt;h1&gt; " + item + "\n");
-                }
-
-                sb.AppendLine("---");
-            }
-            
-
-            return sb.ToString();
         }
 
         #endregion
