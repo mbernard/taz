@@ -12,7 +12,8 @@ namespace Taz.Core.User
             { "miguelbernard", User.Miguel },
             { "yohan.belval", User.Yohan },
             { "elodie-taz", User.Elodie },
-            { "phil", User.Phil }
+            { "phil", User.Phil },
+            { "bot", User.Bot }
         };
 
         #endregion
